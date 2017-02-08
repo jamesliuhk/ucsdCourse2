@@ -67,7 +67,45 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 1) and 
 	    // EfficientDocument (module 2).
-	    return 0;
+		
+		boolean isPreviousVowel = false;
+		int count = 0;
+		int i = 0;
+		
+		for(char c : word.toCharArray())
+		{
+			i++;
+			
+			if(i == word.length())
+			{
+				if(!isPreviousVowel)
+				{
+					if(c == 'e' && count > 0)
+					{
+						break;
+					}
+				}
+			}
+			
+			if(c == 'a'||c == 'e'||c == 'i'||c == 'o'||c == 'u'||c == 'y'||c == 'A'||c == 'E'||c == 'I'||c == 'O'||c == 'U'||c == 'Y')
+			{
+				if(!isPreviousVowel)
+				{
+					isPreviousVowel = true;
+					count ++;
+				}
+				else
+					continue;
+			}
+			else
+			{
+				isPreviousVowel = false;
+			}
+
+		}
+		
+		
+	    return count;
 	}
 	
 	/** A method for testing
@@ -131,7 +169,11 @@ public abstract class Document {
 	public double getFleschScore()
 	{
 	    // TODO: Implement this method in week 1
-	    return 0.0;
+		
+		if(this.getNumSentences() !=0 && this.getNumWords()!=0)
+			return 206.835 - 1.015 * ((this.getNumWords()*1.0)/this.getNumSentences()) - 84.6 * ((this.getNumSyllables()*1.0)/this.getNumWords());
+		else
+			return 0.0;
 	}
 	
 	
