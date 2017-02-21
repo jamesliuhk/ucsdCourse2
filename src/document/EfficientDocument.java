@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class EfficientDocument extends Document {
 
-	private int numWords;  // The number of words in the document
-	private int numSentences;  // The number of sentences in the document
-	private int numSyllables;  // The number of syllables in the document
+	private int numWords = 0;  // The number of words in the document
+	private int numSentences = 0;  // The number of sentences in the document
+	private int numSyllables = 0;  // The number of syllables in the document
 	
 	public EfficientDocument(String text)
 	{
@@ -52,6 +52,26 @@ public class EfficientDocument extends Document {
 		// OF THIS METHOD.
 		List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+");
 		
+		for(String token : tokens)
+		{
+			if(isWord(token))
+			{
+				numWords ++;
+				numSyllables += super.countSyllables(token);
+			}
+			else
+			{
+				numSentences ++;
+			}
+		}
+		if(tokens.size() > 0)
+		{
+			if(isWord(tokens.get(tokens.size() - 1)))
+			{
+				numSentences ++;
+			}
+		}
+		
 		// TODO: Finish this method.  Remember the countSyllables method from 
 		// Document.  That will come in handy here.  isWord defined above will also help.
 	}
@@ -73,7 +93,7 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumSentences() {
 		//TODO: write this method.  Hint: It's simple
-		return 0;
+		return numSentences;
 	}
 
 	
@@ -94,7 +114,7 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumWords() {
 		//TODO: write this method.  Hint: It's simple
-	    return 0;
+	    return numWords;
 	}
 
 
@@ -116,7 +136,7 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumSyllables() {
         //TODO: write this method.  Hint: It's simple
-        return 0;
+        return numSyllables;
 	}
 	
 	// Can be used for testing
