@@ -115,6 +115,26 @@ public class MyLinkedListTester {
 		assertEquals("Remove: check size is correct ", 2, list1.size());
 		
 		// TODO: Add more tests here
+		
+		try
+		{
+			shortList.remove(-1);
+			fail("Check out of bounds");
+		}
+		catch(IndexOutOfBoundsException e)
+		{
+			
+		}
+		
+		try
+		{
+			shortList.remove(5);
+			fail("Check out of bounds");
+		}
+		catch(IndexOutOfBoundsException e)
+		{
+			
+		}
 	}
 	
 	/** Test adding an element into the end of the list, specifically
@@ -124,7 +144,21 @@ public class MyLinkedListTester {
 	public void testAddEnd()
 	{
         // TODO: implement this test
+		shortList.add("C");
+		assertEquals("AddEnd: check add is corrent","C",shortList.get(2));
+		assertEquals("AddEnd: check prev is corrent","B",shortList.get(1));
+		assertEquals("AddEnd: check size is correct ", 3, shortList.size());
 		
+		
+		try
+		{
+			shortList.add(null);
+			fail("Check illegal aguement");
+		}
+		catch(IllegalArgumentException e)
+		{
+			
+		}
 	}
 
 	
@@ -133,6 +167,13 @@ public class MyLinkedListTester {
 	public void testSize()
 	{
 		// TODO: implement this test
+		
+		
+		assertEquals("Size: check size is corrent",2,shortList.size());
+		shortList.add("X");
+		assertEquals("Size: check size is corrent",3,shortList.size());
+		shortList.remove(1);
+		assertEquals("Size: check size is corrent",2,shortList.size());
 	}
 
 	
@@ -146,6 +187,41 @@ public class MyLinkedListTester {
 	{
         // TODO: implement this test
 		
+		try
+		{
+			shortList.add(-1,"out");
+			fail("Check out of bounds");
+		}
+		catch(IndexOutOfBoundsException e)
+		{
+			
+		}
+		
+		try
+		{
+			shortList.add(5,"out");
+			fail("Check out of bounds");
+		}
+		catch(IndexOutOfBoundsException e)
+		{
+			
+		}
+		
+		try
+		{
+			shortList.add(1,null);
+			fail("Check illegal aguement");
+		}
+		catch(IllegalArgumentException e)
+		{
+			
+		}
+		
+		shortList.add(1,"test");
+		assertEquals("AddAtIndex: check add is corrent","test",shortList.get(1));
+		assertEquals("AddAtIndex: check prev is corrent","A",shortList.get(0));
+		assertEquals("AddAtIndex: check next is corrent","B",shortList.get(2));
+		assertEquals("AddAtIndex: check size is correct ", 3, shortList.size());
 	}
 	
 	/** Test setting an element in the list */
@@ -153,6 +229,41 @@ public class MyLinkedListTester {
 	public void testSet()
 	{
 	    // TODO: implement this test
+		String a = shortList.set(1,"X");
+		assertEquals("Set: check a is correct ", "X", a);
+		assertEquals("Set: check set is correct ", "X", shortList.get(1));
+		assertEquals("Set: check size is correct ", 2, shortList.size());
+		
+		
+		try
+		{
+			shortList.set(-1,"out");
+			fail("Check out of bounds");
+		}
+		catch(IndexOutOfBoundsException e)
+		{
+			
+		}
+		
+		try
+		{
+			shortList.set(5,"out");
+			fail("Check out of bounds");
+		}
+		catch(IndexOutOfBoundsException e)
+		{
+			
+		}
+		
+		try
+		{
+			shortList.set(1,null);
+			fail("Check out of bounds");
+		}
+		catch(IllegalArgumentException e)
+		{
+			
+		}
 	    
 	}
 	
