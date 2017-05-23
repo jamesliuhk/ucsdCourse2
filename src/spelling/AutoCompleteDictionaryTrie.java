@@ -20,6 +20,7 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     public AutoCompleteDictionaryTrie()
 	{
 		root = new TrieNode();
+		size = 0;
 	}
 	
 	
@@ -59,19 +60,20 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 		
 		if(!isExist)
 		{
-			parentNode.setEndsWord(true);
+
+			currentNode.setEndsWord(true);
 			size ++;
 			return true;
 		}
 		else
 		{
-			if(parentNode.endsWord())
+			if(currentNode.endsWord())
 			{
 				return false;
 			}
 			else
 			{
-				parentNode.setEndsWord(true);
+				currentNode.setEndsWord(true);
 				size ++;
 				return true;
 			}
@@ -99,19 +101,32 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 		
 		TrieNode currentNode = root;
 		char[] wordLetters = s.toCharArray();
-		for(int i=0;i<s.length();i++)
+		for(int i=0; i < s.length(); i++)
 		{
-			if(i == s.length() - 1)
-			{
-				return currentNode.endsWord();
-			}
 			currentNode = currentNode.getChild(wordLetters[i]);
 			if(currentNode == null)
 			{
 				return false;
 			}
 		}
-		return false;
+		return currentNode.endsWord();
+	}
+	
+	public TrieNode isExist(String s)
+	{
+		s = s.toLowerCase();
+		
+		TrieNode currentNode = root;
+		char[] wordLetters = s.toCharArray();
+		for(int i=0;i<s.length();i++)
+		{
+			currentNode = currentNode.getChild(wordLetters[i]);
+			if(currentNode == null)
+			{
+				return null;
+			}
+		}
+		return currentNode;
 	}
 
 	/** 
@@ -152,11 +167,38 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 //       Add all of its child nodes to the back of the queue
     	 // Return the list of completions
     	 
-    	 
-    	 
-    	 
-    	 
-         return null;
+    	 prefix = prefix.toLowerCase();
+    	 LinkedList<String> result = new LinkedList<String>();
+    	 LinkedList<TrieNode> queue = new LinkedList<TrieNode>();
+    	 TrieNode currentNode;
+    	 TrieNode endNode = isExist(prefix);
+    	 String queueString = "";
+    	 String resString = "";
+    	 String test1;
+    	 if(endNode != null)
+    	 {
+    		 queue.addLast(endNode);
+    		 while(result.size() < numCompletions && queue.size()!=0)
+    		 {
+    			 currentNode = queue.removeFirst();
+    			 test1 = currentNode.getText();
+    			 if(currentNode.endsWord())
+    			 {
+    				result.add(currentNode.getText());
+    				resString +=currentNode.getText() + "*";
+    			 }
+    			 for(char c:currentNode.getValidNextCharacters())
+    			 {
+    				 queue.addLast(currentNode.getChild(c));
+    				 queueString += c;
+    			 }
+    		 }
+    		 return result;
+    	 }
+    	 else
+    	 {
+    		 return result;
+    	 }
      }
 
  	// For debugging

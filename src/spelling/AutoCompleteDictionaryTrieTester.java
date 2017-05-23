@@ -21,7 +21,7 @@ public class AutoCompleteDictionaryTrieTester {
 
 	AutoCompleteDictionaryTrie emptyDict; 
 	AutoCompleteDictionaryTrie smallDict;
-	//AutoCompleteDictionaryTrie largeDict;
+	AutoCompleteDictionaryTrie largeDict;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -31,7 +31,7 @@ public class AutoCompleteDictionaryTrieTester {
 	{
 		emptyDict = new AutoCompleteDictionaryTrie();
 		smallDict = new AutoCompleteDictionaryTrie();
-		//largeDict = new AutoCompleteDictionaryTrie();
+		largeDict = new AutoCompleteDictionaryTrie();
 
 		smallDict.addWord("Hello");
 		smallDict.addWord("HElLo");
@@ -43,7 +43,7 @@ public class AutoCompleteDictionaryTrieTester {
 		smallDict.addWord("a");
 		smallDict.addWord("subsequent");
 		
-		//DictionaryLoader.loadDictionary(largeDict, dictFile);
+		DictionaryLoader.loadDictionary(largeDict, dictFile);
 	}
 
 	
@@ -54,7 +54,7 @@ public class AutoCompleteDictionaryTrieTester {
 	{
 		assertEquals("Testing size for empty dict", 0, emptyDict.size());
 		assertEquals("Testing size for small dict", 8, smallDict.size());
-		//assertEquals("Testing size for large dict", 4438, largeDict.size());
+		assertEquals("Testing size for large dict", 4438, largeDict.size());
 	}
 	
 	/** Test the isWord method */
@@ -132,6 +132,7 @@ public class AutoCompleteDictionaryTrieTester {
 	@Test
 	public void testPredictCompletions()
 	{
+		smallDict.printTree();
 		List<String> completions;
 		completions = smallDict.predictCompletions("", 0);
 		assertEquals(0, completions.size());
