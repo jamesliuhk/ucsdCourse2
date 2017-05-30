@@ -172,25 +172,20 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 LinkedList<TrieNode> queue = new LinkedList<TrieNode>();
     	 TrieNode currentNode;
     	 TrieNode endNode = isExist(prefix);
-    	 String queueString = "";
-    	 String resString = "";
-    	 String test1;
+
     	 if(endNode != null)
     	 {
     		 queue.addLast(endNode);
     		 while(result.size() < numCompletions && queue.size()!=0)
     		 {
     			 currentNode = queue.removeFirst();
-    			 test1 = currentNode.getText();
     			 if(currentNode.endsWord())
     			 {
     				result.add(currentNode.getText());
-    				resString +=currentNode.getText() + "*";
     			 }
     			 for(char c:currentNode.getValidNextCharacters())
     			 {
     				 queue.addLast(currentNode.getChild(c));
-    				 queueString += c;
     			 }
     		 }
     		 return result;
